@@ -5,7 +5,7 @@ using UnityEngine;
 public class S_GridManager : MonoBehaviour
 {
 
-    [SerializeField] private int _width, _height;
+    [SerializeField] private int _width, _height, _cellInterval;
     [SerializeField] private S_Tile _tilePrefab;
     // Start is called before the first frame update
     void Start()
@@ -21,12 +21,13 @@ public class S_GridManager : MonoBehaviour
 
     void GenerateGrid()
     {
-        for(int x = 0; x < _width; x++)
+        for(int x = 1; x < _width; x++)
         {
-            for(int z = 0; z < _height; z++)
+            for(int z = 1; z < _height; z++)
             {
-                Quaternion rotation = Quaternion.Euler(-90f, 0f, 0f);
-                var spawnedTile = Instantiate(_tilePrefab, new Vector3(x*30, 1, z*30), rotation);
+                Quaternion rotation = Quaternion.Euler(90f, 0f, 0f);
+                float size = _tilePrefab.transform.localScale.x;
+                var spawnedTile = Instantiate(_tilePrefab, new Vector3((x* (size + _cellInterval))  + (size / 2), 0.01f, (z* (size + _cellInterval))+ (size / 2)), rotation);
 
                 spawnedTile.name = $"Tile {x}{z}";
             }
