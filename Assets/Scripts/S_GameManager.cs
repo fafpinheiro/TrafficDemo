@@ -13,7 +13,7 @@ public class S_GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inputManager.OnMouseClick += HandleMouseClick;
+       // inputManager.OnMouseClick += HandleMouseClick;
     }
 
     private void HandleMouseClick(Vector3Int position)

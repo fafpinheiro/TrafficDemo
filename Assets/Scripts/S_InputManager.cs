@@ -36,7 +36,7 @@ public class S_InputManager : MonoBehaviour
         CheckArrowInput();
     }
 
-    private Vector3Int? RaycastBoard()
+    public Vector3Int? RaycastBoard()
     {
         RaycastHit hit;
 
@@ -94,4 +94,7 @@ public class S_InputManager : MonoBehaviour
             }
         }
     }
+
+    public bool IsPointerOverUI()
+        => EventSystem.current.IsPointerOverGameObject();
 }

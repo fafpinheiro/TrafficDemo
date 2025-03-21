@@ -17,7 +17,7 @@ public class DragObjects : MonoBehaviour
         _startPosY = 0; 
     }
 
-    // Update is called once per frame
+    // Update is called once per frame++
     void Update()
     {
         
@@ -25,7 +25,7 @@ public class DragObjects : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        Vector3 newPos = new Vector3(_board.CurrMousePos.x, _startPosY + 100, _board.CurrMousePos.z);
+        Vector3 newPos = new Vector3(_board.CurrMousePos.x, _startPosY + 10, _board.CurrMousePos.z);
         Vector3 diff = newPos - transform.position;
 
         _rigidbody.velocity = 10 * diff;
