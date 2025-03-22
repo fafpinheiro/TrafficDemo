@@ -25,7 +25,7 @@ MonoBehaviour:
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 5469680324897232394, guid: 3c33dfa765a6c1045b9a24c9fabe3a44, type: 3}
-  - <Name>k__BackingField: 
+  - <Name>k__BackingField: BlackHole
     <ID>k__BackingField: 3
-    <Size>k__BackingField: {x: 0, y: 0}
+    <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 0}

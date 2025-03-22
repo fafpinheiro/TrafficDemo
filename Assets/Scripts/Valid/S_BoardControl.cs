@@ -16,7 +16,7 @@ public class BoardControl : MonoBehaviour
     void Update()
     {
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] hits = Physics.RaycastAll(ray);
+        var hits = Physics.RaycastAll(ray);
 
         foreach(var hit in hits)
         {

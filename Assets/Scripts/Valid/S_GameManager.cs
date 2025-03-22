@@ -24,7 +24,8 @@ public class S_GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMoveVec.x, 0 ,inputManager.CameraMoveVec.y));
+    
+        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMoveVec.x, inputManager.CameraMoveVec.y, inputManager.CameraMoveVec.y));
         
     }
 }

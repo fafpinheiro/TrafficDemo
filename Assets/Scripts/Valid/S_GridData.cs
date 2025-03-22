@@ -8,9 +8,9 @@ public class S_GridData
 
     public void AddObjectAtCell(Vector3Int gridPosition, Vector2Int objSize, int ID, int placedObjectType)
     {
-        List<Vector3Int> positionsToOccupy = CalculateObjOccupiedCells(gridPosition, objSize);
+        var positionsToOccupy = CalculateObjOccupiedCells(gridPosition, objSize);
 
-        PlacedData data = new PlacedData(positionsToOccupy, ID, placedObjectType);
+        var data = new PlacedData(positionsToOccupy, ID, placedObjectType);
         for (int i = 0; i<positionsToOccupy.Count; i++)
         {
             if (!_placedObjects.ContainsKey(positionsToOccupy[i]))
@@ -24,7 +24,7 @@ public class S_GridData
     //Returns the list of the occupied cells by the added obj in the pos gridPosition(left down corner)
     private List<Vector3Int> CalculateObjOccupiedCells(Vector3Int gridPosition, Vector2Int objSize)
     {
-        List<Vector3Int> tmp = new();
+        var tmp = new List<Vector3Int>();
 
         for (int i = 0; i < objSize.x; i++)
         {
@@ -39,7 +39,7 @@ public class S_GridData
     public bool VerifyIfCanPlaceAtCell(Vector3Int gridPosition, Vector2Int cellSize)
     {
 
-        List<Vector3Int> positionsToTest = CalculateObjOccupiedCells(gridPosition, cellSize);
+        var positionsToTest = CalculateObjOccupiedCells(gridPosition, cellSize);
         for(int i =0; i<positionsToTest.Count; i++)
         {
             if (_placedObjects.ContainsKey(positionsToTest[i])) return false;

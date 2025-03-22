@@ -16,8 +16,8 @@ namespace CM
         }
         public void MoveCamera(Vector3 inputVector)
         {
-            var movementVector = Quaternion.Euler(0, 30, 0) * inputVector;
-            gameCamera.transform.position += movementVector * Time.deltaTime * cameraMovementSpeed;
+           var movementVector = Quaternion.Euler(0, 30, 0) * inputVector;
+           gameCamera.transform.position += movementVector * Time.deltaTime * cameraMovementSpeed;
         }
     }
 }

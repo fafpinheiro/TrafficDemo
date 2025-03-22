@@ -22,9 +22,9 @@ public class S_PlacementSystem : MonoBehaviour
 
     //private Renderer _previewRenderer;
 
-    private List<GameObject> placedGameObjs = new();
+    private List<GameObject> _placedGameObjs = new();
 
-    [SerializeField] private S_PlacementPreview preview;
+    [SerializeField] private S_PlacementPreview _preview;
 
     private Vector3Int lastDetectedPos = Vector3Int.zero; //talvez apagar
     void Start()
@@ -54,20 +54,18 @@ public class S_PlacementSystem : MonoBehaviour
 
         _gridShader.SetActive(true);
       ///  _cellIndicator.SetActive(true);
-        preview.ShowPreview(_dataBase.objData[_selectedObject].Prefab, _dataBase.objData[_selectedObject].Size);
+        _preview.ShowPreview(_dataBase.objData[_selectedObject].Prefab, _dataBase.objData[_selectedObject].Size);
         _inputManager.OnMouseClick += PlaceObject; // calls the event
         //_inputManager.OnMouseUpHold += PlaceObject;
         _inputManager.OnMouseUp += StopPlacement;
     }
-
-    
     //Stops eveything related to the placement moment
     private void StopPlacement()
     {
         _selectedObject = -1;
         _gridShader.SetActive(false);
         //_cellIndicator.SetActive(false);
-        preview.HidePreview();
+        _preview.HidePreview();
 
         _inputManager.OnMouseClick -= PlaceObject; // calls the event
         //_inputManager.OnMouseUpHold -= PlaceObject;
@@ -92,20 +90,31 @@ public class S_PlacementSystem : MonoBehaviour
         {
             GameObject newObject = Instantiate(_dataBase.objData[_selectedObject].Prefab);
             newObject.transform.position = _grid.CellToWorld(gridPosition);
-            placedGameObjs.Add(newObject);
+            AddGravityLayer(newObject);
+            _placedGameObjs.Add(newObject);
 
-            S_GridData selectedData = _dataBase.objData[_selectedObject].ID == 0 ? _roadDataGrid : _objDataGrid;
-            selectedData.AddObjectAtCell(gridPosition,_dataBase.objData[_selectedObject].Size, _dataBase.objData[_selectedObject].ID, placedGameObjs.Count-1);
-            preview.UpdatePosition(_grid.CellToWorld(gridPosition), false);
+            var selectedData = _dataBase.objData[_selectedObject].ID == 0 ? _roadDataGrid : _objDataGrid;
+            selectedData.AddObjectAtCell(gridPosition,_dataBase.objData[_selectedObject].Size, _dataBase.objData[_selectedObject].ID, _placedGameObjs.Count-1);
+            _preview.UpdatePosition(_grid.CellToWorld(gridPosition), false);
         }
     }
 
     //Check if can put the obj on cell
     private bool CheckPlacementValid(Vector3Int gridPosition, int slectedObjectType)
     {
-        S_GridData selectedData = _dataBase.objData[slectedObjectType].ID == 0 ? _roadDataGrid : _objDataGrid;
+        var selectedData = _dataBase.objData[slectedObjectType].ID == 0 ? _roadDataGrid : _objDataGrid;
 
         return selectedData.VerifyIfCanPlaceAtCell(gridPosition, _dataBase.objData[slectedObjectType].Size);
+    }
+
+    //Add the gravity layer to all the objects attached to the gameObj
+    private void AddGravityLayer(GameObject gameObj)
+    {
+        gameObj.layer = LayerMask.NameToLayer("Object");
+        for (int i = 0; i<gameObj.transform.childCount; i++) {
+            gameObj.transform.GetChild(i)
+                .gameObject.layer = LayerMask.NameToLayer("Object");
+        }
     }
 
     private void Update()
@@ -126,7 +135,7 @@ public class S_PlacementSystem : MonoBehaviour
                 bool placementValid = CheckPlacementValid(gridPosition, _selectedObject);
                 //_previewRenderer.material.color = placementValid ? Color.white : Color.red;
 
-                preview.UpdatePosition(_grid.CellToWorld(gridPosition), placementValid);
+                _preview.UpdatePosition(_grid.CellToWorld(gridPosition), placementValid);
             }
             _mouseIndicator.transform.position = mousePosition + new Vector3(0, 0, 0);
             //_cellIndicator.transform.position = _grid.CellToWorld(gridPosition);

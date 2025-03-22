@@ -26,7 +26,7 @@ public class S_PlacementPreview : MonoBehaviour
     {
         //obj preview
         _previewObj = Instantiate(prefab);
-        Rigidbody[] _previewRBs = _previewObj.GetComponentsInChildren<Rigidbody>();
+        var _previewRBs = _previewObj.GetComponentsInChildren<Rigidbody>();
         foreach(Rigidbody rb in _previewRBs)
         {
             rb.isKinematic = false;
@@ -52,10 +52,10 @@ public class S_PlacementPreview : MonoBehaviour
     //Set obj mats to the tranparency shader
     private void PreparePreview(GameObject previewObj)
     {
-        Renderer[] renderers = previewObj.GetComponentsInChildren<Renderer>();
+        var renderers = previewObj.GetComponentsInChildren<Renderer>();
         for(int i = 0; i< renderers.Length; i++)
         {
-            Material[] materials = renderers[i].materials;
+            var materials = renderers[i].materials;
             for(int j = 0; j<materials.Length; j++)
             {
                 materials[i] = _previewMaterialInstance;

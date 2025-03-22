@@ -11,8 +11,9 @@ public class S_InputManager : MonoBehaviour
     public Action OnMouseUp;
     public Action<Vector3Int> OnMouseUpHold;
 
-    private Vector2 _cameraMoveVec;
-    [SerializeField]Camera mainCamera;
+    private Vector3 _cameraMoveVec;
+    [SerializeField]private Camera _mainCamera;
+    [SerializeField]private float _cameraMovingSpeed;
 
     public LayerMask boardMask; // to check if the click was legal, dont need to call events otherwise
 
@@ -34,30 +35,42 @@ public class S_InputManager : MonoBehaviour
         CheckClickDownEvent();
         CheckClickUpEvent();
         CheckClickHoldEvent();
-        CheckClickUpHoldEvent();
+       // CheckClickUpHoldEvent();
         CheckArrowInput();
     }
 
     public Vector3Int? RaycastBoard()
     {
         RaycastHit hit;
-
+      
         // Raycast from the camera
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-
+        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+      
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, boardMask))
         {
             Vector3Int positionInt = Vector3Int.RoundToInt(hit.point);
             return positionInt;
         }
-
+      
         return null;
     }
 
     // Check for array keys input (movement)
     private void CheckArrowInput()
     {
-        _cameraMoveVec = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // used to ad AND <- ->
+        float upDown = 0f;
+        // Increase altitude when Spacebar is pressed
+        if (Input.GetKey(KeyCode.Space))
+        {
+            upDown = 1f;
+        }
+
+        // Decrease altitude when Shift is pressed
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            upDown = -1f;
+        }
+        _cameraMoveVec = new Vector3(Input.GetAxis("Horizontal"), upDown, Input.GetAxis("Vertical")); // used to ad AND <- ->
     }
 
     // Check if we are holding the click
@@ -65,7 +78,7 @@ public class S_InputManager : MonoBehaviour
     {
         if(Input.GetMouseButton(0) && EventSystem.current.IsPointerOverGameObject() == false) // check that we are not pressing over a a object UI
         {
-            var position = RaycastBoard();
+            var position =  RaycastBoard();
 
             if(position != null)
             {
