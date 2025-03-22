@@ -9,6 +9,7 @@ public class S_InputManager : MonoBehaviour
 
     public Action<Vector3Int> OnMouseClick, OnMouseHold;
     public Action OnMouseUp;
+    public Action<Vector3Int> OnMouseUpHold;
 
     private Vector2 _cameraMoveVec;
     [SerializeField]Camera mainCamera;
@@ -33,6 +34,7 @@ public class S_InputManager : MonoBehaviour
         CheckClickDownEvent();
         CheckClickUpEvent();
         CheckClickHoldEvent();
+        CheckClickUpHoldEvent();
         CheckArrowInput();
     }
 
@@ -68,6 +70,19 @@ public class S_InputManager : MonoBehaviour
             if(position != null)
             {
                 OnMouseHold?.Invoke(position.Value); // make everybody that is listenig OnMouseHold event that the mouse was moved  // the ? gives the oportunity to not calling the event if nothing is listening OnMouseHold
+            }
+        }
+    }
+    // Check if we are holding the click
+    private void CheckClickUpHoldEvent()
+    {
+        if (Input.GetMouseButtonUp(0) && EventSystem.current.IsPointerOverGameObject() == false) // check that we are not pressing over a a object UI
+        {
+            var position = RaycastBoard();
+
+            if (position != null)
+            {
+                OnMouseUpHold?.Invoke(position.Value); // make everybody that is listenig OnMouseHold event that the mouse was moved  // the ? gives the oportunity to not calling the event if nothing is listening OnMouseHold
             }
         }
     }
