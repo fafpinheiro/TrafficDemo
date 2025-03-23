@@ -7,7 +7,7 @@ public class S_PlacementSystem : MonoBehaviour
 {
     [SerializeField] private GameObject _mouseIndicator/*, _cellIndicator*/;
     [SerializeField] private S_InputManager _inputManager;
-    [SerializeField] private BoardControl _board;
+    //[SerializeField] private BoardControl _board;
     [SerializeField] private Grid _grid;
 
     private Rigidbody _rigidbody;
@@ -82,7 +82,7 @@ public class S_PlacementSystem : MonoBehaviour
             return;
         }
 
-        Vector3 mousePosition = _board.CurrMousePos;
+        var mousePosition = (Vector3)_inputManager.RaycastBoard();//_board.CurrMousePos;
         Vector3Int gridPosition = _grid.WorldToCell(mousePosition);//convert mouse position into grid space
 
         bool placementValid = CheckPlacementValid(gridPosition, _selectedObject);
@@ -94,6 +94,7 @@ public class S_PlacementSystem : MonoBehaviour
             if(_dataBase.objData[_selectedObject].ID == 4)
             {
                 newObject.GetComponent<S_GravityPoint>().enabled = true;
+                newObject.GetComponent<SphereCollider>().enabled = true;
             }
             else
             {
@@ -128,27 +129,26 @@ public class S_PlacementSystem : MonoBehaviour
 
     private void Update()
     {
-        //if (_selectedObject == -1) return; // dont want to move anything if object not clicked
+        // controls preview control
+       // if (_selectedObject == -1) return; //optimization dont want to move anything if object not clicked
 
-        Vector3 mousePosition = _board.CurrMousePos;//new Vector3(_board.CurrMousePos.x,  10, _board.CurrMousePos.z);
-
-        //   Vector3 diff = mousePosition - transform.position;
-        //
-        //   _rigidbody.velocity = 10 * diff;
-        //   _rigidbody.rotation = Quaternion.Euler(new Vector3(_rigidbody.velocity.z / 5, 0, -_rigidbody.velocity.x / 5));
-        Vector3Int gridPosition = _grid.WorldToCell(mousePosition);//convert mouse position into grid space
-        if (lastDetectedPos != gridPosition)
+        var mousePosition = _inputManager.RaycastBoard();// _board.CurrMousePos;//new Vector3(_board.CurrMousePos.x,  10, _board.CurrMousePos.z);
+        if (mousePosition != null)
         {
-            if (_selectedObject != -1)
+            Vector3Int gridPosition = _grid.WorldToCell((Vector3)mousePosition);//convert mouse position into grid space
+            if (lastDetectedPos != gridPosition) //optimization, ignore if mouse dont move
             {
-                bool placementValid = CheckPlacementValid(gridPosition, _selectedObject);
-                //_previewRenderer.material.color = placementValid ? Color.white : Color.red;
+                if (_selectedObject != -1)
+                {
+                    bool placementValid = CheckPlacementValid(gridPosition, _selectedObject);
+                    //_previewRenderer.material.color = placementValid ? Color.white : Color.red;
 
-                _preview.UpdatePosition(_grid.CellToWorld(gridPosition), placementValid);
+                    _preview.UpdatePosition(_grid.CellToWorld(gridPosition), placementValid);
+                }
+                _mouseIndicator.transform.position = (Vector3)mousePosition + new Vector3(0, 0, 0);
+                //_cellIndicator.transform.position = _grid.CellToWorld(gridPosition);
+                lastDetectedPos = gridPosition;
             }
-            _mouseIndicator.transform.position = mousePosition + new Vector3(0, 0, 0);
-            //_cellIndicator.transform.position = _grid.CellToWorld(gridPosition);
-            lastDetectedPos = gridPosition;
         }
     }
 }

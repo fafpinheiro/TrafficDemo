@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class S_ObjUiRotation : MonoBehaviour
 {
-    [SerializeField] private float rotationSpeed = 50f; // Speed of rotation
+    [SerializeField] private float _rotationSpeed = 50f; // Speed of rotation
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +15,6 @@ public class S_ObjUiRotation : MonoBehaviour
     void Update()
     {
         //Rotates the object
-        transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up * _rotationSpeed * Time.deltaTime);
     }
 }
