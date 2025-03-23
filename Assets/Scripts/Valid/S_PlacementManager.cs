@@ -90,7 +90,16 @@ public class S_PlacementSystem : MonoBehaviour
         {
             GameObject newObject = Instantiate(_dataBase.objData[_selectedObject].Prefab);
             newObject.transform.position = _grid.CellToWorld(gridPosition);
-            AddGravityLayer(newObject);
+
+            if(_dataBase.objData[_selectedObject].ID == 4)
+            {
+                newObject.GetComponent<S_GravityPoint>().enabled = true;
+            }
+            else
+            {
+                AddGravityLayer(newObject);
+            }
+
             _placedGameObjs.Add(newObject);
 
             var selectedData = _dataBase.objData[_selectedObject].ID == 0 ? _roadDataGrid : _objDataGrid;

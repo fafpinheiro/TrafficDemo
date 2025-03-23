@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7544664785794660356
+--- !u!114 &-5996697439727042970
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_HeadDistortion
-  m_Shader: {fileID: -6465566751694194690, guid: 11045ba94feb6a945a586975dfe54308, type: 3}
+  m_Name: M_Fresnel
+  m_Shader: {fileID: -6465566751694194690, guid: fef4675cd01d599428bd07703ee4b25d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -29,17 +29,13 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: d223697ee9e901a4e811b819701ba89c, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -54,11 +50,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DistortionAmount: 0.13
-    - _DistortionScale: 100
+    - _FresnelPower: 3
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RotationAmount: 1
-    - _TwirlStrength: 25
-    m_Colors: []
+    m_Colors:
+    - _FresnelColor: {r: 0.4801976, g: 0.9339623, b: 0.6107516, a: 0.98039216}
   m_BuildTextureStacks: []
