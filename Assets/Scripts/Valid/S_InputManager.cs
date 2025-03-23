@@ -49,6 +49,7 @@ public class S_InputManager : MonoBehaviour
         CheckArrowInput();
     }
 
+    // Raycasts a ray from the cam to detect the pointed cell
     public Vector3Int? RaycastBoard()
     {
         RaycastHit hit;
@@ -136,6 +137,7 @@ public class S_InputManager : MonoBehaviour
         }
     }
 
+    // Check if mouse is hover ui
     public bool IsPointerOverUI()
         => EventSystem.current.IsPointerOverGameObject();
 }

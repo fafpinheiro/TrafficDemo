@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7095815882080853655}
   - component: {fileID: 196042271216209984}
   - component: {fileID: 1813303944383063616}
+  - component: {fileID: 713931359905494072}
   m_Layer: 0
   m_Name: BlackHole
   m_TagString: GravityPoint
@@ -73,6 +74,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &713931359905494072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275369733243614419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ecab59f76225ad4ca78d5b680853d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iD: 4
+  size: {x: 1, y: 1}
 --- !u!1 &618132306116269616
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 618132306116269616}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -206,7 +221,7 @@ Transform:
   m_GameObject: {fileID: 4856620148350908919}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0000014305}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0.5}
   m_LocalScale: {x: 12.05429, y: 12.05429, z: 12.05429}
   m_ConstrainProportionsScale: 0
   m_Children: []

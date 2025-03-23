@@ -8,11 +8,6 @@ public class S_GravityPoint : MonoBehaviour
     [SerializeField]private float _gravityStrength = 10f;
     [SerializeField] private LayerMask _affectedLayer;
     [SerializeField] private float _affectedDistance;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void FixedUpdate()
