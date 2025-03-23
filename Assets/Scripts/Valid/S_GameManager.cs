@@ -25,7 +25,7 @@ public class S_GameManager : MonoBehaviour
     void Update()
     {
     
-        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMoveVec.x, inputManager.CameraMoveVec.y, inputManager.CameraMoveVec.y));
+        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMoveVec.x, 0, inputManager.CameraMoveVec.y), inputManager.Altitude);
         
     }
 }

@@ -1,3 +1,4 @@
+using CM;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,14 +13,23 @@ public class S_InputManager : MonoBehaviour
     public Action<Vector3Int> OnMouseUpHold;
 
     private Vector3 _cameraMoveVec;
+    private float _altitude;
     [SerializeField]private Camera _mainCamera;
     [SerializeField]private float _cameraMovingSpeed;
+    public CameraMovement cameraMovement;
+
 
     public LayerMask boardMask; // to check if the click was legal, dont need to call events otherwise
+
 
     public Vector2 CameraMoveVec //Propertie
     {
         get { return _cameraMoveVec; }
+    }
+
+    public float Altitude //Propertie
+    {
+        get { return _altitude; }
     }
 
     // Start is called before the first frame update
@@ -58,19 +68,22 @@ public class S_InputManager : MonoBehaviour
     // Check for array keys input (movement)
     private void CheckArrowInput()
     {
-        float upDown = 0f;
         // Increase altitude when Spacebar is pressed
         if (Input.GetKey(KeyCode.Space))
         {
-            upDown = 1f;
+            _altitude = 1f;
         }
 
         // Decrease altitude when Shift is pressed
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            upDown = -1f;
+            _altitude = -1f;
         }
-        _cameraMoveVec = new Vector3(Input.GetAxis("Horizontal"), upDown, Input.GetAxis("Vertical")); // used to ad AND <- ->
+        _cameraMoveVec = new Vector2(Input.GetAxis("Horizontal")/*, upDown*/, Input.GetAxis("Vertical")); // used to ad AND <- ->
+
+        cameraMovement.MoveCamera(new Vector3(CameraMoveVec.x, 0, CameraMoveVec.y),Altitude);
+
+        _altitude = 0;
     }
 
     // Check if we are holding the click

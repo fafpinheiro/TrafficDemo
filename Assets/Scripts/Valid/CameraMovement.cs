@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace CM
 {
-
     public class CameraMovement : MonoBehaviour
     {
         public Camera gameCamera;
@@ -14,10 +13,11 @@ namespace CM
         {
             gameCamera = GetComponent<Camera>();
         }
-        public void MoveCamera(Vector3 inputVector)
+        public void MoveCamera(Vector3 inputVector, float altitude = 0)
         {
-           var movementVector = Quaternion.Euler(0, 30, 0) * inputVector;
-           gameCamera.transform.position += movementVector * Time.deltaTime * cameraMovementSpeed;
+            var movementVector = Quaternion.Euler(0, 30, 0) * inputVector; // to move diagonal shifts
+            
+            gameCamera.transform.position += (movementVector + new Vector3(0,altitude,0)) * Time.deltaTime * cameraMovementSpeed;
         }
     }
 }

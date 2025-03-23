@@ -58,7 +58,7 @@ public class S_PlacementPreview : MonoBehaviour
             var materials = renderers[i].materials;
             for(int j = 0; j<materials.Length; j++)
             {
-                materials[i] = _previewMaterialInstance;
+                materials[j] = _previewMaterialInstance;
             }
             renderers[i].materials = materials;
         }
