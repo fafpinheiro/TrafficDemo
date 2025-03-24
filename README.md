@@ -46,5 +46,5 @@ Implemented things:
   For camera movement, a MonoBehaviour class is attached to the camera that contains the functions related to camera control. The S_GameManager class manages the camera based on positions provided by the input manager, which checks for any camera movement inputs.
   To control the black hole, there is an S_GravityPoint class that calculates the physics and then applies them to the scene's city objects
 
-  ![Alt Text](./Images/IMG_20250324_233104.png)
+  ![Logo](./Images/IMG_20250324_233104.png)
   
