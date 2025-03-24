@@ -39,7 +39,10 @@ Implemented things:
 
   After that i made some sketches as showned one the pictures bellow in order to get a big overview of what the game would need.
 
-
-So i started implementing the grid where the objects will be placed, for that i used the Grid system already built in unity 
-  
+  Main Pipeline:
+  I started implementing the grid where objects will be placed, and for that, I used Unity's built-in Grid system. The grid is represented by the S_GridData class, which holds the data for each cell's position.
+  To manage user inputs, the S_InputManager class is responsible for invoking actions, which, if activated, trigger the corresponding events.
+  Two classes are used for placement: S_PlacementManager, which controls the events for placing objects, and S_PlacementPreview, which handles the preview of the object that shows the position where we are trying to place it.
+  For camera movement, a MonoBehaviour class is attached to the camera that contains the functions related to camera control. The S_GameManager class manages the camera based on positions provided by the input manager, which checks for any camera movement inputs.
+  To control the black hole, there is an S_GravityPoint class that calculates the physics and then applies them to the scene's city objects
   
