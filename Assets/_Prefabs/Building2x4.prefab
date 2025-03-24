@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iD: 2
   size: {x: 2, y: 4}
+  uniqueId: 0
 --- !u!1 &5612149634084554707
 GameObject:
   m_ObjectHideFlags: 0

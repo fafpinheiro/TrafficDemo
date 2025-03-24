@@ -197,3 +197,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iD: 1
   size: {x: 2, y: 2}
+  uniqueId: 0

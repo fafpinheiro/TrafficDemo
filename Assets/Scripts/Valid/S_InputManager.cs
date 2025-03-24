@@ -45,7 +45,6 @@ public class S_InputManager : MonoBehaviour
         CheckClickDownEvent();
         CheckClickUpEvent();
         CheckClickHoldEvent();
-       // CheckClickUpHoldEvent();
         CheckArrowInput();
     }
 
@@ -80,7 +79,7 @@ public class S_InputManager : MonoBehaviour
         {
             _altitude = -1f;
         }
-        _cameraMoveVec = new Vector2(Input.GetAxis("Horizontal")/*, upDown*/, Input.GetAxis("Vertical")); // used to ad AND <- ->
+        _cameraMoveVec = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // used to ad AND <- ->
 
         cameraMovement.MoveCamera(new Vector3(CameraMoveVec.x, 0, CameraMoveVec.y),Altitude);
 

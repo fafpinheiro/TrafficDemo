@@ -9,12 +9,18 @@ public class S_GravityPoint : MonoBehaviour
     [SerializeField] private LayerMask _affectedLayer;
     [SerializeField] private float _affectedDistance;
 
+    //[SerializeField] private S_PlacementSystem _placementSystem; TODO
+
     // Update is called once per frame
     void FixedUpdate()
     {
         ApplyGravityField();
     }
 
+    public void SetPlacementeSystem(S_PlacementSystem placementSystem)
+    {
+        //_placementSystem = placementSystem; TODO
+    }
     private void ApplyGravityField()
     {
         // Find all objects in the affected layer
@@ -68,6 +74,13 @@ public class S_GravityPoint : MonoBehaviour
         // Check if the object colliding has a specific tag or other properties
         if ((_affectedLayer.value & (1 << collision.gameObject.layer)) > 0)
         {
+         // TODO
+         //   GameObject deletedObject = collision.gameObject;
+         //   var objectInfo = deletedObject.GetComponentInParent<S_PlaceableInfo>();
+         //   var parent = deletedObject.transform.parent;
+         //   var objectPos = parent.GetComponent<Transform>().position /*- new Vector3(objectInfo.size.x/2,0, objectInfo.size.y / 2)*/;
+         //   if (!_placementSystem.CheckPlacementValid(Vector3Int.RoundToInt(objectPos), objectInfo.iD))
+         //       _placementSystem.DeleteObject(objectPos, objectInfo.size, objectInfo.iD, objectInfo.uniqueId);
             Destroy(collision.gameObject);  // Destroy the colliding object
             Debug.Log("Object destroyed: " + collision.gameObject.name);
         }

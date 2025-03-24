@@ -810,6 +810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iD: 3
   size: {x: 3, y: 3}
+  uniqueId: 0
 --- !u!1 &4792240999149881312
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class S_PlacementSystem : MonoBehaviour
 {
-    [SerializeField] private GameObject _mouseIndicator/*, _cellIndicator*/;
+    [SerializeField] private GameObject _mouseIndicator;
     [SerializeField] private S_InputManager _inputManager;
-    //[SerializeField] private BoardControl _board;
     [SerializeField] private Grid _grid;
     [SerializeField] private GameObject _defaultCity;
 
 
     [SerializeField] private SO_ObjDataBase _dataBase;
     private int _selectedObject = -1;
+    private int _uniqueId = 0;
 
     [SerializeField] private GameObject _gridShader;
     private S_GridData _objDataGrid, _roadDataGrid;
@@ -22,6 +22,7 @@ public class S_PlacementSystem : MonoBehaviour
     [SerializeField] private S_PlacementPreview _preview;
 
     private Vector3Int lastDetectedPos = Vector3Int.zero;
+
     void Start()
     {
         StopPlacement();
@@ -66,14 +67,14 @@ public class S_PlacementSystem : MonoBehaviour
     }
 
     //Place the obj on cell
-    private void PlaceObject(Vector3Int obj)
+    private void PlaceObject(Vector3Int position)
     {
         if (_inputManager.IsPointerOverUI())
         {
             return;
         }
 
-        var mousePosition = (Vector3)_inputManager.RaycastBoard();//_board.CurrMousePos;
+        var mousePosition = (Vector3)position;
         Vector3Int gridPosition = _grid.WorldToCell(mousePosition);//convert mouse position into grid space
 
         bool placementValid = CheckPlacementValid(gridPosition, _selectedObject);
@@ -81,11 +82,12 @@ public class S_PlacementSystem : MonoBehaviour
         {
             GameObject newObject = Instantiate(_dataBase.objData[_selectedObject].Prefab);
             newObject.transform.position = _grid.CellToWorld(gridPosition);
-
             if(_dataBase.objData[_selectedObject].ID == 4)
             {
+                var gravityPoint = newObject.GetComponent<S_GravityPoint>();
                 // activates the black hole physics
-                newObject.GetComponent<S_GravityPoint>().enabled = true;
+                gravityPoint.enabled = true;
+                gravityPoint.SetPlacementeSystem(this);
                 newObject.GetComponent<SphereCollider>().enabled = true;
             }
             else
@@ -94,6 +96,8 @@ public class S_PlacementSystem : MonoBehaviour
             }
 
             _placedGameObjs.Add(newObject);
+            newObject.GetComponent<S_PlaceableInfo>().uniqueId = _uniqueId;
+            _uniqueId++;
 
             var selectedData = _dataBase.objData[_selectedObject].ID == 0 ? _roadDataGrid : _objDataGrid;
             selectedData.AddObjectAtCell(gridPosition,_dataBase.objData[_selectedObject].Size, _dataBase.objData[_selectedObject].ID, _placedGameObjs.Count-1);
@@ -102,7 +106,7 @@ public class S_PlacementSystem : MonoBehaviour
     }
 
     //Check if can put the obj on cell
-    private bool CheckPlacementValid(Vector3Int gridPosition, int slectedObjectType)
+    public bool CheckPlacementValid(Vector3Int gridPosition, int slectedObjectType)
     {
         var selectedData = _dataBase.objData[slectedObjectType].ID == 0 ? _roadDataGrid : _objDataGrid;
 
@@ -134,6 +138,8 @@ public class S_PlacementSystem : MonoBehaviour
             var gameObject = placeableInfo.gameObject;
             var gridPosition = _grid.WorldToCell(placeableInfo.transform.position);//convert mouse position into grid space
             _placedGameObjs.Add(gameObject);
+            _uniqueId++;
+            gameObject.GetComponent<S_PlaceableInfo>().uniqueId = _placedGameObjs.IndexOf(gameObject);
 
             var selectedData = placeableInfo.iD == 0 ? _roadDataGrid : _objDataGrid;
             selectedData.AddObjectAtCell(gridPosition, placeableInfo.size, placeableInfo.iD, _placedGameObjs.Count - 1);
@@ -143,12 +149,20 @@ public class S_PlacementSystem : MonoBehaviour
         }
     }
 
+    public void DeleteObject(Vector3 position, Vector2Int objSize, int id, int uniqueId)
+    {
+        Vector3Int gridPosition = _grid.WorldToCell(position);//convert mouse position into grid space
+        var selectedData = id == 0 ? _roadDataGrid : _objDataGrid;
+        selectedData.RemoveObjectAtCell(Vector3Int.RoundToInt(position), objSize);
+        _placedGameObjs.RemoveAt(uniqueId);
+    }
+
     private void Update()
     {
         // controls preview control
-       // if (_selectedObject == -1) return; //optimization dont want to move anything if object not clicked
+        if (_selectedObject == -1) return; //optimization dont want to move anything if object not clicked
 
-        var mousePosition = _inputManager.RaycastBoard();// _board.CurrMousePos;//new Vector3(_board.CurrMousePos.x,  10, _board.CurrMousePos.z);
+        var mousePosition = _inputManager.RaycastBoard();
         if (mousePosition != null)
         {
             Vector3Int gridPosition = _grid.WorldToCell((Vector3)mousePosition);//convert mouse position into grid space

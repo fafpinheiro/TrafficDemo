@@ -8,4 +8,6 @@ public class S_PlaceableInfo : MonoBehaviour
     public int iD;//type of placeable
 
     public Vector2Int size;// size in cells
+
+    public int uniqueId;
 }
