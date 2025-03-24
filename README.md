@@ -1,16 +1,16 @@
 # TrafficDemo
 
-This project consistes on a 3d city with dimensions of 30x30 Unity units.
+This project consists of a 3D city with dimensions of 30x30 Unity units.
 
-The city is pre-loaded with some assets already in place, and the objective of the game is to select some objects and place them on the board in order to build a more habitable city.
+The city is pre-loaded with some assets already in place. The objective of the game is to select objects and place them on the board to build a more habitable city.
 
-Between those objects exist one that is a black hole, be carefull with this one... It can make real and big damages to your city.
+Between those objects, exists one, that is a black hole, be carefull with this one... It can cause serious damage to your city!
 
 How to play:
 
-As already said, the game starts with a board, whitch represents the playable area, with some vegetation, buildings and roads already in place.
-Now as the player you have at your disposal an interface with some of those objects that by being selected can be added to your personalized city.
-In addition and to make it more interesting you can also place a black hole, that after being placed it applies a strong gravity force in the objects in the city and enventually absorve them.
+As mentioned before, the game starts with a board representing the playable area, with some vegetation, buildings and roads already in place.
+Now, as the player, you have an interface with some of those objects, that by being selected allows you to add them into your personalized city.
+To make things more interesting, you can also place a black hole. By being placed, it generates a strong gravitational force that pulls objects toward it and eventually absorbs them.
 
 - Controls:
     - Move the camera forward and backwards: W and S;
@@ -21,16 +21,16 @@ In addition and to make it more interesting you can also place a black hole, tha
     - To select and place the objects: MOUSE 1 (Left mouse button) on the UI object or wanted cell.
  
 Implemented things:
-  - Grid system and data base to store and map the occupied grid cells and what type of data is occupying that cell.
-  - An Unlit shader graph that shows and hides the grid marks (bounds) where the objects can be placed.
-  - Input system to handle all the user inputs, like camera moving, UI interaction and mouse position.
-  - Raycast to return the inpact point, that representes the cell selected to place the object.
+  - A grid system and database to store and map occupied grid cells and the type of data occupying each cell.
+  - An Unlit shader graph that toggles the visibility of grid marks (bounds) where objects can be placed.
+  - An input system to handle all user inputs, including camera movement, UI interactions, and mouse position.
+  - A raycast to determine the impact point, representing the selected cell for object placement.
   - Camera movement;
-  - Object placemente system, that instanciates the object to create and saves its data.
-  - An Unlit shader graph to work as a transiction effect from the 2d UI to the 3d object, that shows a preview of the object that will be placed.
-  - Creation of the gravitational physics of a black hole and the impact that those have on the city.
-  - An Unlit shdaer graph to simulate the black hole appearence and the visual distortion that it would make on the other objects.
-  - UI to select the objects that will be placed on the city.
+  - An object placement system that instantiates objects, places them, and saves their data.
+  - An Unlit shader graph for a transition effect from the 2D UI to the 3D object, displaying a preview of the object before placement.
+  - Implementation of gravitational physics for a black hole and its impact on the city.
+  - An Unlit shader graph simulating the black hole’s appearance and the visual distortions it causes on surrounding objects.
+  - A UI for selecting objects to be placed in the city.
 
   Developed work:
 
