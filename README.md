@@ -21,13 +21,16 @@ In addition and to make it more interesting you can also place a black hole, tha
     - To select and place the objects: MOUSE 1 (Left mouse button) on the UI object or wanted cell.
  
 Implemented things:
-  - Grid sistem and data base to store and map the occupied grid cells and what type of data is occupying that cell.
+  - Grid system and data base to store and map the occupied grid cells and what type of data is occupying that cell.
   - An Unlit shader graph that shows and hides the grid marks (bounds) where the objects can be placed.
-  - Input sistem to handle all the user inputs, like camera moving, UI interaction and mouse position.
+  - Input system to handle all the user inputs, like camera moving, UI interaction and mouse position.
   - Raycast to return the inpact point, that representes the cell selected to place the object.
   - Camera movement;
-  - Object placemente sistem, that instanciates the object to create and saves its data.
-  - 
+  - Object placemente system, that instanciates the object to create and saves its data.
+  - An Unlit shader graph to work as a transiction effect from the 2d UI to the 3d object, that shows a preview of the object that will be placed.
+  - Creation of the gravitational physics of a black hole and the impact that those have on the city.
+  - An Unlit shdaer graph to simulate the black hole appearence and the visual distortion that it would make on the other objects.
+  - UI to select the objects that will be placed on the city.
 
   Developed work:
 
@@ -37,6 +40,6 @@ Implemented things:
   After that i made some sketches as showned one the pictures bellow in order to get a big overview of what the game would need.
 
 
-So i started implementing the grid where the objects will be placed, for that i used the Grid sistem already built in unity 
+So i started implementing the grid where the objects will be placed, for that i used the Grid system already built in unity 
   
   
